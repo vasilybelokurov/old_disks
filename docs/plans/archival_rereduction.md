@@ -1,4 +1,31 @@
-# Plan: re-reduce archival red-giant spectroscopy of isolated dIrrs (2026-11-06)
+# Plan: rebuild per-star catalogues of published programmes for isolated dIrrs (2026-11-06, revised)
+
+**User decision (2026-11-06): only data from published programmes.** Cole 71.B-0516(B), Held 075.D-0838 (NGC 6822 part)
+and Mayer 072.B-0307 have no refereed publication and are excluded. The plan is now to recover or rebuild per-star
+catalogues for programmes that are published but whose tables we do not have, and to re-reduce published data only
+where that is needed for homogeneity (velocity zero-points, CaT calibration).
+
+## Summary
+
+- **Goal.** Maximise the number of red giants with v_los and [Fe/H] in IC 1613, NGC 6822 and WLM from published
+  programmes. `results/feasibility.csv` puts the threshold for an 80 % detection of ΔV/σ = 0.5 between [Fe/H] halves at
+  about 550 stars (270 per half) reaching ≥ 2 R_half.
+- **Missing published catalogues** (absent on the VizieR mirror while CDS is down):
+  - Belland+2020, NGC 6822, DEIMOS ([2020ApJ...903...10B](https://ui.adsabs.harvard.edu/abs/2020ApJ...903...10B)): N unknown.
+  - Taibi+2024, IC 1613, MUSE 097.B-0373 ([2024A&A...689A..88T](https://ui.adsabs.harvard.edu/abs/2024A%26A...689A..88T)): about 300 red giants per the literature census.
+  - Leaman+2012, WLM, FORS2 072.B-0497 + DEIMOS C257D ([2012ApJ...750...33L](https://ui.adsabs.harvard.edu/abs/2012ApJ...750...33L)): 180 red giants.
+- **Route A (preferred):** obtain these tables from CDS when it returns, from the journals' machine-readable tables, or
+  from the authors.
+- **Route B (fallback):** re-reduce the raw data of these published programmes from ESO and KOA.
+- **Expected totals (unverified):**
+  - IC 1613: 139 + about 300 MUSE (overlap unknown).
+  - NGC 6822: 380 + Belland (unknown).
+  - WLM: 180.
+  - Only NGC 6822 is plausibly near the threshold.
+- **Validation before science.** Any re-reduction must reproduce the published values for the same stars.
+
+---
+## Original version (before the published-only decision), kept for the record
 
 ## Summary
 
