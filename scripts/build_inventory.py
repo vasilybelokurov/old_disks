@@ -2,7 +2,7 @@
 
 Member: the paper's flag where given (member_paper); otherwise |v - v_sys| < 3 sqrt(sigma^2 + e_v^2) (sigma = 10 km/s if
 LVDB has none). Elliptical radius R_ell in units of the LVDB R_half.
-Union over sources: a star within 1 arcsec of one already counted is a duplicate; sources are added in decreasing order
+Union over sources: a star within 1 arcsec of one already counted (in another source or the same one) is a duplicate; sources are added in decreasing order
 of members with [Fe/H].
 
 Outputs: data/inventory.csv (one row per galaxy and source, plus source = "UNION"),
@@ -49,6 +49,9 @@ def union(m):
             idx = s.index[s.source == src]
             ra, dec = m.loc[idx, "ra"].to_numpy(), m.loc[idx, "dec"].to_numpy()
             new = np.ones(len(idx), bool)
+            c = SkyCoord(ra * u.deg, dec * u.deg)
+            i, j, _, _ = c.search_around_sky(c, 1 * u.arcsec)
+            new[np.unique(j[i < j])] = False  # repeats within the source
             if len(kept_ra):
                 sep = SkyCoord(ra * u.deg, dec * u.deg).match_to_catalog_sky(SkyCoord(kept_ra * u.deg, kept_dec * u.deg))[1]
                 new = sep.arcsec > 1.0

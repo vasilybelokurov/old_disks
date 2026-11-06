@@ -26,8 +26,8 @@ WLM,2,2,0,1.65,3.26,,UNION,,,-14.38,989.46
 WLM,2,2,0,1.65,3.26,,sdss5_dr20_boss,sdss5_dr20_boss,,-14.38,989.46
 Sextans A,9,9,2,2.72,3.82,,UNION,,,-14.24,1406.05
 Sextans A,9,9,2,2.72,3.82,,desi_dr1,desi_dr1,,-14.24,1406.05
-Fornax,3782,1326,567,4.83,1.26,0.37,UNION,,mw,-13.39,142.56
 Fornax,1222,1222,490,4.83,0.98,0.37,Walker+2023,M2FS HiRes,mw,-13.39,142.56
+Fornax,3558,1102,522,4.83,1.35,0.42,UNION,,mw,-13.39,142.56
 Fornax,2995,632,256,3.76,1.42,0.34,Pace+2021,M2FS+MMFS,mw,-13.39,142.56
 Fornax,250,217,10,2.83,0.15,,apogee_dr17,apogee_dr17,mw,-13.39,142.56
 Fornax,9,9,7,2.83,4.17,,sdss5_dr20_boss,sdss5_dr20_boss,mw,-13.39,142.56
@@ -40,11 +40,11 @@ UGC 4879,67,54,26,7.35,4.1,0.14,Kirby+2014,DEIMOS,,-12.23,1218.99
 Pegasus dIrr,105,96,6,2.8,2.8,0.11,UNION,,,-12.14,887.16
 Pegasus dIrr,103,94,5,2.55,2.8,0.11,Kirby+2014,DEIMOS,,-12.14,887.16
 Pegasus dIrr,2,2,1,2.8,4.59,,desi_dr1,desi_dr1,,-12.14,887.16
-Leo A,127,113,22,3.65,3.9,0.15,UNION,,,-12.11,797.99
 Leo A,127,113,22,3.65,3.9,0.15,Kirby+2017,DEIMOS,,-12.11,797.99
+Leo A,126,112,22,3.65,3.95,0.15,UNION,,,-12.11,797.99
 Leo A,48,40,9,3.26,4.4,0.15,Kirby+2014,DEIMOS,,-12.11,797.99
-Leo I,528,528,161,4.26,1.1,0.37,UNION,,mw,-11.82,258.23
 Leo I,526,526,161,4.26,1.1,0.37,Walker+2023,Hectochelle,mw,-11.82,258.23
+Leo I,347,347,66,4.26,1.2,0.38,UNION,,mw,-11.82,258.23
 Leo I,2,2,0,1.72,6.51,,desi_dr1,desi_dr1,mw,-11.82,258.23
 Leo I,1,1,0,0.86,11.91,,sdss5_dr20_boss,sdss5_dr20_boss,mw,-11.82,258.23
 Sagittarius dIrr,45,43,15,5.95,4.2,0.15,UNION,,,-11.79,1196.74
@@ -53,11 +53,11 @@ Andromeda I,61,40,11,3.0,3.55,0.13,UNION,,m_031,-11.35,776.25
 Andromeda I,28,28,4,2.4,3.36,0.13,Kirby+2020,DEIMOS,m_031,-11.35,776.25
 Andromeda I,12,12,7,3.0,2.88,,desi_dr1,desi_dr1,m_031,-11.35,776.25
 Andromeda I,25,0,0,0.79,4.1,,Tollerud+2012,DEIMOS,m_031,-11.35,776.25
-Cetus,156,58,26,5.84,5.25,0.13,UNION,,,-11.19,755.09
 Cetus,57,57,13,5.84,5.33,0.13,Taibi+2018,FORS2,,-11.19,755.09
+Cetus,153,55,26,5.84,5.2,0.13,UNION,,,-11.19,755.09
 Cetus,1,1,0,1.98,20.43,,sdss5_dr20_boss,sdss5_dr20_boss,,-11.19,755.09
 Cetus,116,0,14,2.92,4.5,,Kirby+2014,DEIMOS,,-11.19,755.09
-Sculptor,3145,2469,702,7.09,1.09,0.31,UNION,,mw,-10.77,83.95
+Sculptor,2713,2037,647,7.09,1.0,0.26,UNION,,mw,-10.77,83.95
 Sculptor,1693,1693,475,6.58,1.26,0.54,Walker+2023,M2FS HiRes,mw,-10.77,83.95
 Sculptor,1604,1339,411,7.09,0.63,0.1,Tolstoy+2023,GIRAFFE,mw,-10.77,83.95
 Sculptor,173,158,34,2.99,0.45,,apogee_dr17,apogee_dr17,mw,-10.77,83.95
@@ -76,17 +76,17 @@ Antlia II,3,2,0,1.42,0.07,,apogee_dr17,apogee_dr17,mw,-9.73,124.17
 Antlia II,2,2,2,2.5,9.92,,sdss5_dr20_boss,sdss5_dr20_boss,mw,-9.73,124.17
 LGS 3,1,1,0,0.17,0.6,,UNION,,m_031,-9.61,605.34
 LGS 3,1,1,0,0.17,0.6,,desi_dr1,desi_dr1,m_031,-9.61,605.34
-Tucana,67,56,12,5.0,6.0,0.16,UNION,,,-9.54,887.16
 Tucana,56,56,10,5.0,5.8,0.16,Taibi+2020,FORS2,,-9.54,887.16
+Tucana,56,54,9,4.98,5.8,0.16,UNION,,,-9.54,887.16
 Tucana,11,0,2,4.97,6.1,,Taibi+2020,GIRAFFE,,-9.54,887.16
 Andromeda III,51,24,3,2.17,3.11,0.12,UNION,,m_031,-9.49,721.11
 Andromeda III,27,24,3,2.17,2.42,0.12,Kirby+2020,DEIMOS,m_031,-9.49,721.11
 Andromeda III,35,0,0,1.34,3.6,,Tollerud+2012,DEIMOS,m_031,-9.49,721.11
-Leo II,416,416,155,6.99,1.04,0.43,UNION,,mw,-9.48,208.93
 Leo II,402,402,150,6.99,1.04,0.42,Walker+2023,Hectochelle,mw,-9.48,208.93
 Leo II,289,289,85,4.44,1.05,0.28,Spencer+2017,Hectochelle,mw,-9.48,208.93
-Carina,2687,2318,321,6.37,1.18,0.58,UNION,,mw,-9.43,105.58
+Leo II,225,225,47,6.99,1.15,0.44,UNION,,mw,-9.48,208.93
 Carina,2282,2282,281,5.3,1.17,0.58,Walker+2023,M2FS HiRes,mw,-9.43,105.58
+Carina,1318,949,201,6.37,1.29,0.62,UNION,,mw,-9.43,105.58
 Carina,60,54,4,2.54,0.32,,apogee_dr17,apogee_dr17,mw,-9.43,105.58
 Carina,19,19,1,2.37,4.47,,sdss5_dr20_boss,sdss5_dr20_boss,mw,-9.43,105.58
 Carina,780,0,75,6.37,1.9,,Walker+2009,MMFS,mw,-9.43,105.58
@@ -97,20 +97,20 @@ Andromeda XVIII,18,0,0,1.64,4.9,,UNION,,,-9.16,1180.32
 Andromeda XVIII,18,0,0,1.64,4.9,,Tollerud+2012,DEIMOS,,-9.16,1180.32
 Andromeda XXI,4,0,0,1.59,6.55,,UNION,,m_031,-8.94,772.68
 Andromeda XXI,4,0,0,1.59,6.55,,Tollerud+2012,DEIMOS,m_031,-8.94,772.68
-Draco,2038,2037,602,16.48,0.89,0.4,UNION,,mw,-8.87,81.55
 Draco,1838,1838,555,16.48,0.8,0.4,Walker+2023,Hectochelle,mw,-8.87,81.55
+Draco,831,830,211,16.48,1.4,0.53,UNION,,mw,-8.87,81.55
 Draco,543,543,117,10.19,1.1,0.28,Walker+2015,Hectochelle,mw,-8.87,81.55
 Draco,240,240,73,2.96,2.19,,desi_dr1,desi_dr1,mw,-8.87,81.55
 Draco,64,51,9,2.87,0.47,,apogee_dr17,apogee_dr17,mw,-8.87,81.55
-Ursa Minor,1839,1618,389,12.13,2.04,0.34,UNION,,mw,-8.86,70.15
+Ursa Minor,1391,1170,223,12.13,2.5,0.3,UNION,,mw,-8.86,70.15
 Ursa Minor,1067,1067,345,12.13,1.12,0.52,Walker+2023,Hectochelle,mw,-8.86,70.15
 Ursa Minor,1052,830,55,3.63,3.0,0.17,Pace+2020,DEIMOS,mw,-8.86,70.15
 Ursa Minor,69,53,8,2.83,0.53,,apogee_dr17,apogee_dr17,mw,-8.86,70.15
 Ursa Minor,4,4,1,2.83,9.43,,sdss5_dr20_boss,sdss5_dr20_boss,mw,-8.86,70.15
-Canes Venatici I,56,56,15,3.0,1.58,0.63,UNION,,mw,-8.73,210.86
+Canes Venatici I,43,43,12,3.0,1.92,0.63,UNION,,mw,-8.73,210.86
 Canes Venatici I,34,34,5,2.98,1.06,0.63,Walker+2023,Hectochelle,mw,-8.73,210.86
 Canes Venatici I,25,25,10,3.0,4.48,,desi_dr1,desi_dr1,mw,-8.73,210.86
-Sextans,1798,1666,290,7.87,1.44,0.59,UNION,,mw,-8.72,85.9
+Sextans,1181,1049,243,7.87,1.66,0.59,UNION,,mw,-8.72,85.9
 Sextans,707,707,7,2.36,1.34,0.69,Walker+2023,M2FS HiRes,mw,-8.72,85.9
 Sextans,551,551,125,7.87,1.05,0.49,Walker+2023,Hectochelle,mw,-8.72,85.9
 Sextans,516,516,156,3.0,5.69,,desi_dr1,desi_dr1,mw,-8.72,85.9
@@ -120,13 +120,13 @@ Sextans,80,56,15,2.9,0.82,,apogee_dr17,apogee_dr17,mw,-8.72,85.9
 Sextans,27,27,7,2.74,8.44,,sdss5_dr20_boss,sdss5_dr20_boss,mw,-8.72,85.9
 Sextans,8,8,0,1.88,5.21,0.78,Walker+2023,M2FS MedRes,mw,-8.72,85.9
 Sextans,449,0,10,3.81,1.5,,Walker+2009,MMFS,mw,-8.72,85.9
-Andromeda XIV,43,0,1,2.09,4.1,,UNION,,m_031,-8.64,772.68
+Andromeda XIV,39,0,1,2.09,4.3,,UNION,,m_031,-8.64,772.68
 Andromeda XIV,43,0,1,2.09,4.1,,Tollerud+2012,DEIMOS,m_031,-8.64,772.68
 Andromeda IX,25,0,0,1.92,4.2,,UNION,,m_031,-8.63,701.46
 Andromeda IX,25,0,0,1.92,4.2,,Tollerud+2012,DEIMOS,m_031,-8.63,701.46
 Andromeda XV,23,0,0,1.49,4.0,,UNION,,m_031,-8.37,748.17
 Andromeda XV,23,0,0,1.49,4.0,,Tollerud+2012,DEIMOS,m_031,-8.37,748.17
-Crater II,240,240,13,2.97,1.27,0.38,UNION,,mw,-8.18,116.57
+Crater II,188,188,12,2.97,1.54,0.35,UNION,,mw,-8.18,116.57
 Crater II,172,172,13,2.97,1.0,0.5,Walker+2023,Hectochelle,mw,-8.18,116.57
 Crater II,141,141,0,1.82,3.01,0.28,Ji+2021,AAOmega,mw,-8.18,116.57
 Andromeda XVI,4,0,0,1.33,2.1,,UNION,,m_031,-7.47,517.61
@@ -134,7 +134,7 @@ Andromeda XVI,4,0,0,1.33,2.1,,Tollerud+2012,DEIMOS,m_031,-7.47,517.61
 Andromeda X,27,21,3,2.21,3.35,0.16,UNION,,m_031,-7.3,630.96
 Andromeda X,25,21,3,2.21,3.47,0.16,Kirby+2020,DEIMOS,m_031,-7.3,630.96
 Andromeda X,21,0,0,1.97,2.5,,Tollerud+2012,DEIMOS,m_031,-7.3,630.96
-Andromeda XIII,10,0,0,1.3,3.75,,UNION,,m_031,-6.77,820.35
+Andromeda XIII,5,0,0,1.3,5.4,,UNION,,m_031,-6.77,820.35
 Andromeda XIII,10,0,0,1.3,3.75,,Tollerud+2012,DEIMOS,m_031,-6.77,820.35
 Andromeda XII,2,0,0,0.95,4.05,,UNION,,m_031,-6.58,717.79
 Andromeda XII,2,0,0,0.95,4.05,,Tollerud+2012,DEIMOS,m_031,-6.58,717.79
@@ -142,34 +142,34 @@ Andromeda XXII,7,0,0,1.88,5.5,,UNION,,m_033,-6.39,755.09
 Andromeda XXII,7,0,0,1.88,5.5,,Tollerud+2012,DEIMOS,m_033,-6.39,755.09
 Andromeda XI,2,0,0,1.15,5.4,,UNION,,m_031,-6.38,751.62
 Andromeda XI,2,0,0,1.15,5.4,,Tollerud+2012,DEIMOS,m_031,-6.38,751.62
-Bootes I,301,202,56,318.55,1.28,0.35,UNION,,mw,-6.02,66.37
 Bootes I,197,197,18,3.09,0.87,0.37,Walker+2023,Hectochelle,mw,-6.02,66.37
+Bootes I,173,74,50,318.55,1.9,0.43,UNION,,mw,-6.02,66.37
 Bootes I,27,16,10,3.58,1.7,0.3,Longeard+2022,AAOmega,mw,-6.02,66.37
 Bootes I,104,0,31,318.55,2.3,,Jenkins+2021,AAOmega,mw,-6.02,66.37
-Bootes III,16,16,0,1.24,1.32,0.57,UNION,,mw,-5.83,48.53
 Bootes III,16,16,0,1.24,1.32,0.57,Walker+2023,Hectochelle,mw,-5.83,48.53
+Bootes III,9,9,0,1.24,1.44,0.57,UNION,,mw,-5.83,48.53
 Ursa Major I,16,16,9,7.29,0.89,0.27,UNION,,mw,-5.14,97.27
 Ursa Major I,16,16,9,7.29,0.89,0.27,Walker+2023,Hectochelle,mw,-5.14,97.27
-Leo IV,6,6,6,9.3,0.65,0.16,UNION,,mw,-4.95,151.36
 Leo IV,6,6,6,9.3,0.65,0.16,Walker+2023,Hectochelle,mw,-4.95,151.36
+Leo IV,3,3,3,9.3,0.65,0.16,UNION,,mw,-4.95,151.36
 Hydrus I,31,31,0,1.79,1.75,0.61,UNION,,lmc,-4.71,27.54
 Hydrus I,31,31,0,1.79,1.75,0.61,Walker+2023,M2FS HiRes,lmc,-4.71,27.54
 Ursa Major II,16,16,6,4.4,1.03,0.6,UNION,,mw,-4.42,34.67
 Ursa Major II,16,16,6,4.4,1.03,0.6,Walker+2023,Hectochelle,mw,-4.42,34.67
-Leo V,14,14,11,43.58,1.33,0.5,UNION,,mw,-4.4,169.04
 Leo V,14,14,11,43.58,1.33,0.5,Walker+2023,Hectochelle,mw,-4.4,169.04
-Pisces II,13,13,9,29.98,1.55,0.5,UNION,,mw,-4.28,182.81
+Leo V,10,10,8,43.58,1.48,0.5,UNION,,mw,-4.4,169.04
 Pisces II,13,13,9,29.98,1.55,0.5,Walker+2023,Hectochelle,mw,-4.28,182.81
+Pisces II,10,10,8,29.98,1.83,0.49,UNION,,mw,-4.28,182.81
 Grus I,5,5,0,1.43,1.57,0.63,UNION,,mw,-4.13,126.47
 Grus I,5,5,0,1.43,1.57,0.63,Walker+2023,M2FS HiRes,mw,-4.13,126.47
-Tucana II,159,159,0,0.94,0.34,0.17,UNION,,mw,-3.75,56.23
 Tucana II,121,121,0,0.94,0.29,0.11,Walker+2023,M2FS HiRes,mw,-3.75,56.23
 Tucana II,38,38,0,0.91,6.12,0.84,Walker+2023,M2FS MedRes,mw,-3.75,56.23
+Tucana II,16,16,0,0.94,1.09,0.26,UNION,,mw,-3.75,56.23
 Reticulum II,17,17,1,4.91,1.51,0.73,UNION,,lmc,-3.1,31.62
 Reticulum II,17,17,1,4.91,1.51,0.73,Walker+2023,M2FS HiRes,lmc,-3.1,31.62
-Bootes II,12,12,9,10.06,1.13,0.59,UNION,,mw,-2.94,41.69
 Bootes II,12,12,9,10.06,1.13,0.59,Walker+2023,Hectochelle,mw,-2.94,41.69
+Bootes II,8,8,6,10.06,1.13,0.59,UNION,,mw,-2.94,41.69
 Phoenix II,12,12,11,9.92,1.08,0.3,UNION,,lmc,-2.6,83.18
 Phoenix II,12,12,11,9.92,1.08,0.3,Walker+2023,M2FS HiRes,lmc,-2.6,83.18
-Triangulum II,25,25,10,9.11,0.47,0.29,UNION,,mw,-1.3,28.44
 Triangulum II,25,25,10,9.11,0.47,0.29,Walker+2023,Hectochelle,mw,-1.3,28.44
+Triangulum II,6,6,3,9.11,0.53,0.3,UNION,,mw,-1.3,28.44

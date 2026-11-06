@@ -77,8 +77,11 @@ def walker2023(lvdb_names):
         t = table(f"J/ApJS/268/19/{tab}")
         t = t[t.goodNobs > 0].drop_duplicates("ObjID") if "goodNobs" in t else t.drop_duplicates("ObjID")
         t = t.assign(gal=[walker_name(x, lvdb_names) for x in t.Target]).dropna(subset=["gal"])
-        out.append(frame("Walker+2023", "J/ApJS/268/19", t.reset_index(drop=True), t.gal.to_numpy(), "VlosAvg",
-                         "e_VlosAvg", "FeHAvg", "e_FeHAvg", None, "ObjID", inst))
+        t = t.reset_index(drop=True)
+        out.append(frame("Walker+2023", "J/ApJS/268/19", t, t.gal.to_numpy(), "VlosAvg", "e_VlosAvg", "FeHAvg",
+                         "e_FeHAvg", None, "ObjID", inst)
+                   .assign(pmra=t.pmRA.to_numpy(float), pmdec=t.pmDE.to_numpy(float),
+                           epmra=t.e_pmRA.to_numpy(float), epmdec=t.e_pmDE.to_numpy(float)))
     return pd.concat(out)
 
 

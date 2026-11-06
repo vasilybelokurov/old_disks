@@ -44,7 +44,8 @@ def test_permutation_detects_strong_trend():
 def _truth_sample(rng, n=4000):
     R = rng.uniform(0.1, 4, n)
     x = R * np.sign(rng.uniform(-1, 1, n)) * 0.95
-    return pd.DataFrame(dict(x=x, R=R, ev=np.full(n, 3.0), feh=-1 + rng.normal(0, 0.6, n), efeh=np.full(n, 0.4)))
+    return pd.DataFrame(dict(x=x, y=np.zeros(n), R=R, ev=np.full(n, 3.0), feh=-1 + rng.normal(0, 0.6, n),
+                             efeh=np.full(n, 0.4)))
 
 
 def test_blind_fit_recovers_parameters():
@@ -72,3 +73,15 @@ def test_tercile_contrast_follows_slope():
 def test_statistics_runs_on_real_sample():
     st = statistics(sample("NGC 185"), R0=1.0, Rstar=2.5, nperm=200, rng=np.random.default_rng(0))
     assert set(st) >= {"p_rot", "p_sig", "delta", "blind"}
+
+
+@pytest.mark.parametrize("galaxy", ["Bootes I", "Draco"])
+def test_dsph_sample(galaxy):
+    from olddisks.defit import sample_dsph
+    s = sample_dsph(galaxy)
+    assert len(s) > 30 and (s.R < 6).all()
+    # no star twice (1 arcsec), and perspective-corrected velocities centred on v_sys
+    from astropy.coordinates import SkyCoord
+    import astropy.units as u
+    c = SkyCoord(s.ra.to_numpy() * u.deg, s.dec.to_numpy() * u.deg)
+    assert (c.match_to_catalog_sky(c, nthneighbor=2)[1].arcsec > 1).all()

@@ -41,7 +41,7 @@ def sample(galaxy, dpa=0.0):
     xmaj = (xi * np.sin(p) + eta * np.cos(p)) * 60 / g.rhalf
     xmin = (xi * np.cos(p) - eta * np.sin(p)) * 60 / g.rhalf
     name = t.Name.astype(str)
-    return pd.DataFrame(dict(star_id=name, x=xmaj, R=np.hypot(xmaj, xmin / (1 - g.ellipticity)), v=t.HRV.to_numpy(float),
+    return pd.DataFrame(dict(star_id=name, x=xmaj, y=xmin, R=np.hypot(xmaj, xmin / (1 - g.ellipticity)), v=t.HRV.to_numpy(float),
                              ev=np.maximum(t.e_HRV.to_numpy(float), EV_FLOOR), imag=t.Imag.to_numpy(float),
                              feh=name.map(ho.feh).to_numpy(float), efeh=name.map(ho.efeh).to_numpy(float)))
 
@@ -50,10 +50,15 @@ def h(R, R0, Rstar):
     return R / Rstar if R0 is None else np.tanh(R / R0) / np.tanh(Rstar / R0)
 
 
-def _components(s, q, R0, Rstar):
+def xkin(s, dtheta):
+    """Coordinate along the kinematic axis, at PA (photometric PA + dtheta [rad])."""
+    return s.x.to_numpy() * np.cos(dtheta) + s.y.to_numpy() * np.sin(dtheta)
+
+
+def _components(s, q, R0, Rstar, dtheta=0.0):
     """Mean and member variance per star for q = (vsys, V, ln sigma0, beta)."""
     vsys, V, lns, beta = q
-    mean = vsys + V * h(s.R.to_numpy(), R0, Rstar) * s.x.to_numpy() / s.R.to_numpy()
+    mean = vsys + V * h(s.R.to_numpy(), R0, Rstar) * xkin(s, dtheta) / s.R.to_numpy()
     sig = np.exp(lns + beta * (s.R.to_numpy() - Rstar))
     return mean, sig**2 + s.ev.to_numpy() ** 2
 
@@ -66,17 +71,21 @@ def _loglike(s, vsys, mean, var, f):
     return np.logaddexp(np.log1p(-f) + lin, np.log(f) + lo)
 
 
-def blind_fit(s, R0, Rstar):
-    """Maximum likelihood (vsys, V, sigma0, beta, f) over all stars of s; best of several starts."""
+def blind_fit(s, R0, Rstar, fit_theta=False):
+    """Maximum likelihood (vsys, V, sigma0, beta, f[, dtheta]) over all stars of s; best of several starts. Without
+    fit_theta the kinematic axis is the photometric major axis (dtheta = 0); with it, dtheta in (-pi/2, pi/2] and V of
+    either sign covers all axes."""
     def nll(p):
-        mean, var = _components(s, p[:4], R0, Rstar)
+        mean, var = _components(s, p[:4], R0, Rstar, p[5] if fit_theta else 0.0)
         return -np.sum(_loglike(s, p[0], mean, var, 1 / (1 + np.exp(-p[4]))))
     v0 = np.median(s.v)
-    starts = [[v0, V, np.log(np.std(s.v)), 0.0, -3.0] for V in (-30, -10, 10, 30)]
-    best = min((minimize(nll, x, method="L-BFGS-B", bounds=[(v0 - 50, v0 + 50), (-100, 100), (0, 5), (-2, 2), (-10, 0)])
-                for x in starts), key=lambda r: r.fun)
-    vsys, V, lns, beta, lf = best.x
-    return dict(vsys=vsys, V=V, sigma0=np.exp(lns), beta=beta, f=1 / (1 + np.exp(-lf)), R0=R0, Rstar=Rstar, nll=best.fun)
+    th = (-1.0, -0.3, 0.3, 1.0) if fit_theta else (0.0,)
+    starts = [[v0, V, np.log(np.std(s.v)), 0.0, -3.0] + ([t] if fit_theta else []) for V in (-10, 10) for t in th]
+    bounds = [(v0 - 50, v0 + 50), (-100, 100), (0, 5), (-2, 2), (-10, 0)] + ([(-np.pi / 2, np.pi / 2)] if fit_theta else [])
+    best = min((minimize(nll, x, method="L-BFGS-B", bounds=bounds) for x in starts), key=lambda r: r.fun)
+    vsys, V, lns, beta, lf = best.x[:5]
+    return dict(vsys=vsys, V=V, sigma0=np.exp(lns), beta=beta, f=1 / (1 + np.exp(-lf)), R0=R0, Rstar=Rstar,
+                dtheta=best.x[5] if fit_theta else 0.0, nll=best.fun)
 
 
 def _rbins(R, nbins=NBINS):
@@ -121,7 +130,7 @@ def tercile_fit(s, b):
         st = s[terc == t]
 
         def nll(q):
-            mean, var = _components(st, (b["vsys"], q[0], q[1], b["beta"]), b["R0"], b["Rstar"])
+            mean, var = _components(st, (b["vsys"], q[0], q[1], b["beta"]), b["R0"], b["Rstar"], b["dtheta"])
             return -np.sum(_loglike(st, b["vsys"], mean, var, b["f"]))
         r = min((minimize(nll, [V, np.log(b["sigma0"])], method="L-BFGS-B", bounds=[(-100, 100), (0, 5)])
                  for V in (b["V"], -b["V"], 0.0)), key=lambda r: r.fun)
@@ -130,10 +139,10 @@ def tercile_fit(s, b):
     return dict(ratio=ratio, zmean=zmean, delta=ratio[2] - ratio[0])
 
 
-def statistics(s, R0, Rstar, nperm=10000, rng=None):
-    b = blind_fit(s, R0, Rstar)
-    mean, var = _components(s, (b["vsys"], b["V"], np.log(b["sigma0"]), b["beta"]), R0, Rstar)
-    y_rot = (s.v - b["vsys"]) * np.sign(s.x) * np.sign(b["V"])
+def statistics(s, R0, Rstar, nperm=10000, rng=None, fit_theta=False):
+    b = blind_fit(s, R0, Rstar, fit_theta)
+    mean, var = _components(s, (b["vsys"], b["V"], np.log(b["sigma0"]), b["beta"]), R0, Rstar, b["dtheta"])
+    y_rot = (s.v - b["vsys"]) * np.sign(xkin(s, b["dtheta"])) * np.sign(b["V"])
     y_sig = np.abs(s.v - mean) / np.sqrt(var)
     rot = permutation_test(y_rot, s.R, s.feh, nperm, rng)
     sig = permutation_test(y_sig, s.R, s.feh, nperm, rng)
@@ -156,7 +165,7 @@ def make_mock(s, truth, slope, k, rng):
     lam = tau2 / (tau2 + e[tag] ** 2)
     z[tag] = m[tag] + lam * (feh[tag] - m[tag]) + rng.normal(0, np.sqrt(lam) * e[tag])
     V = truth["V"] + slope * truth["sigma0"] * (z - z[tag].mean())
-    mean = truth["vsys"] + V * h(R, truth["R0"], truth["Rstar"]) * s.x.to_numpy() / R
+    mean = truth["vsys"] + V * h(R, truth["R0"], truth["Rstar"]) * xkin(s, truth.get("dtheta", 0.0)) / R
     sig = truth["sigma0"] * np.exp(truth["beta"] * (R - truth["Rstar"]))
     v = mean + rng.normal(0, np.sqrt(sig**2 + s.ev.to_numpy() ** 2))
     out = rng.uniform(size=len(s)) < truth["f"]
@@ -164,4 +173,37 @@ def make_mock(s, truth, slope, k, rng):
     s["v"] = v
     s.loc[tag, "feh"] = z[tag] + rng.normal(0, e[tag])
     s["ztrue"] = z
+    return s
+
+
+def sample_dsph(galaxy, source="Walker+2023", rmax=6.0):
+    """Members of a MW dSph from one catalogue, velocities corrected for perspective (geometry.perspective_vlos).
+    Walker+2023 (no membership flag): one row per star (1 arcsec, smallest e_v), |v - v_sys| < 3 sqrt(sigma^2 + e_v^2),
+    Gaia PM chi^2 < 9 about the LVDB systemic PM (error floor 0.05 mas/yr; stars without a PM kept). Other catalogues:
+    the paper's flag. All: R_ell < rmax R_half. e_v floored at 0.5 km/s."""
+    import astropy.units as u
+    from astropy.coordinates import SkyCoord
+    from olddisks.catalogues import load
+    from olddisks.geometry import perspective_vlos
+    g = pd.read_csv(LVDB).drop_duplicates("name").set_index("name").loc[galaxy]
+    s = load()
+    s = s[(s.galaxy == galaxy) & (s.source == source) & np.isfinite(s.v)].sort_values("ev").reset_index(drop=True)
+    c = SkyCoord(s.ra.to_numpy() * u.deg, s.dec.to_numpy() * u.deg)
+    i, j, _, _ = c.search_around_sky(c, 1 * u.arcsec)
+    s = s.drop(index=np.unique(j[i < j])).reset_index(drop=True)  # sorted by e_v: keep the best copy of each star
+    s["v"] = s.v - (perspective_vlos(s.ra, s.dec, g.ra, g.dec, g.vlos_systemic, g.pmra, g.pmdec, g.distance) - g.vlos_systemic)
+    ell, pa = np.nan_to_num(g.ellipticity), np.radians(np.nan_to_num(g.position_angle))
+    xi, eta = tangent_plane(s.ra.to_numpy(), s.dec.to_numpy(), g.ra, g.dec)
+    s["x"] = (xi * np.sin(pa) + eta * np.cos(pa)) * 60 / g.rhalf
+    s["y"] = (xi * np.cos(pa) - eta * np.sin(pa)) * 60 / g.rhalf
+    s["R"] = np.hypot(s.x, s.y / (1 - ell))
+    if source == "Walker+2023":
+        sig = 10.0 if np.isnan(g.vlos_sigma) else g.vlos_sigma
+        win = np.abs(s.v - g.vlos_systemic) < 3 * np.sqrt(sig**2 + s.ev**2)
+        chi2 = (s.pmra - g.pmra) ** 2 / (s.epmra**2 + 0.05**2) + (s.pmdec - g.pmdec) ** 2 / (s.epmdec**2 + 0.05**2)
+        member = win & ((chi2 < 9) | ~np.isfinite(chi2))
+    else:
+        member = s.member_paper.fillna(False).astype(bool)
+    s = s[member & (s.R < rmax)].reset_index(drop=True)
+    s["ev"] = np.maximum(s.ev, 0.5)
     return s
