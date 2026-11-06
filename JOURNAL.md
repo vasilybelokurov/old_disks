@@ -167,3 +167,11 @@ imaging (Gallart), 25 h is HII-region IFU; IC 1613 VIMOS and GIRAFFE spectra are
 or its GC. The old earlier recommendation to re-reduce these was wrong. The real red-giant CaT data are Cole 71.B-0516(B) FORS2 (IC 1613 17 h,
 NGC 6822 19 h, 8 GC calibrators; only AAS abstracts), Held 075.D-0838 FORS2 (NGC 6822 18 h; nothing in ADS) and Mayer
 072.B-0307 GIRAFFE (IC 1613 RGB 8.7 h; nothing in ADS). Validation set: Tolstoy 69.B-0305(B), the Swan+2016 masks.
+
+### Published-only constraint and adversarial review (user, 2026-11-06)
+User: only data from published programmes; asked for an adversarial review by two Opus agents. Result
+(`docs/reviews/2026-11-06_plan_debate.md`): the dIrr re-reduction plan was abandoned. Belland+2020 = the same Kirby stars;
+the per-galaxy results are already published; no dIrr can reach the threshold. New primary sample: M31 dEs NGC 147, 185, 205
+with Ho+2015 CaT [Fe/H] (verified in ADS: 2015ApJ...798...77H, 1243 red giants) plus Geha velocities. The continuous
+V/σ([Fe/H]) fit deconvolves [Fe/H] errors (≥ 0.4 dex); MW dSphs are a separate tidal test. Plan v3: `docs/plans/rotation_vs_feh.md`.
+Next: fetch Ho+2015 Table 2 and Geha+2006 velocities.
