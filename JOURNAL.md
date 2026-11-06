@@ -175,3 +175,26 @@ the per-galaxy results are already published; no dIrr can reach the threshold. N
 with Ho+2015 CaT [Fe/H] (verified in ADS: 2015ApJ...798...77H, 1243 red giants) plus Geha velocities. The continuous
 V/σ([Fe/H]) fit deconvolves [Fe/H] errors (≥ 0.4 dex); MW dSphs are a separate tidal test. Plan v3: `docs/plans/rotation_vs_feh.md`.
 Next: fetch Ho+2015 Table 2 and Geha+2006 velocities.
+
+### M31 dEs: data assembled (plan v3, step 1)
+- Ho+2015 (J/ApJ/798/77 table2, 1243 rows) and Geha+2006 NGC 205 velocities (J/AJ/131/332 table3, 725 rows) fetched from the
+  CfA mirror (`scripts/fetch_vizier.py`).
+- `catalogues.ho2015()`: Ho [Fe/H] joined within 1" to Geha velocities, nearest wins. Matched 227/230 (NGC 147), 312/321
+  (NGC 185), 221/224 (NGC 205; 3 Ho stars shared a Geha star). New test, written first and seen to fail, now passes (12 tests).
+- Samples (`figures/de_data.png`):
+
+  | Galaxy | N | median e_v [km/s] | median e_[Fe/H] [dex] | [Fe/H] spread [dex] | r_ell 90 % [R_half] |
+  |---|---|---|---|---|---|
+  | NGC 147 | 227 | 3.7 | 0.48 | 0.61 | 2.0 |
+  | NGC 185 | 312 | 3.2 | 0.45 | 0.72 | 4.0 |
+  | NGC 205 | 221 | 11.5 (single value for all Geha+2006 stars) | 0.54 | 0.76 | 9.4 |
+
+- Seen in the figure:
+  - NGC 147 rotates clearly (about ±15–20 km/s over ±2 R_half along PA 34°); metal-poor and metal-rich medians are similar by eye.
+  - NGC 185 has a weak gradient.
+  - NGC 205 is broad (±100 km/s) with both halves offset negative: possible M31 halo contamination (v_sys −246 km/s),
+    11.5 km/s errors, tides. It needs a contaminant mixture, and its zero-point needs checking.
+  - All masks lie along the major-axis strip, so the minor axis is barely sampled. Fix θ to the photometric PA, or put a
+    prior on it.
+- [Fe/H] errors (0.45–0.54 dex) are comparable to the [Fe/H] spread (0.6–0.76), confirming the dilution concern.
+- Next: model with a mixture, [Fe/H]-error deconvolution and the Ho selection (stars without [Fe/H]); mocks before any real fit.

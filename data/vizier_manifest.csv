@@ -47,6 +47,9 @@ J/ApJ/752/45,J/ApJ/752/45/table1,33,recno Sat Mask Ns MJD Date Exp Nslit NVel Si
 J/ApJ/752/45,J/ApJ/752/45/table2,528,recno Mask Sat Seq RAJ2000 DEJ2000 T2mag e_T2mag M-T2 e_M-T2 HRV e_HRV EW e_EW Mmb,adecc34ce07e1e3df02a8171e3241352ac302f72ff42ac3cea30c54d5fc5653e,vizier.cfa.harvard.edu
 J/AJ/159/46,J/AJ/159/46/table1,20,recno dSph Ns Mask Nslits Texp Exp Nexp Aper Obs Simbad NED LEDA _RA _DE,e8e62521d03a320e905ef5d64bd23927c20380897a894349c5bc631b80b5c6a7,vizier.cfa.harvard.edu
 J/AJ/159/46,J/AJ/159/46/table2,417,recno dSph Name RAJ2000 DEJ2000 Vmag e_Vmag Imag e_Imag Mask SN HRV e_HRV Mm Teff e_Teff logg [Fe/H] e_[Fe/H] [a/Fe] e_[a/Fe] [Mg/Fe] e_[Mg/Fe] [Si/Fe] e_[Si/Fe] [Ca/Fe] e_[Ca/Fe] [Ti/Fe] e_[Ti/Fe] Comm T12 SimbadName,790d612fa40255745d7fe0ee9e368f5f2b8e2640d66c63d679110047fb0e7ef0,vizier.cfa.harvard.edu
+J/ApJ/798/77,J/ApJ/798/77/table1,6,recno Gal Dist VMag N* <[Fe/H]> e_<[Fe/H]> s[Fe/H] e_s[Fe/H] Skew e_Skew Kurt e_Kurt rh grad e_grad p.eff e_p.eff Simbad NED _RA _DE,4453975e88b6e9a67e029888ed2db3063af80ca94c781e2cac069acf90d51461,vizier.cfa.harvard.edu
+J/ApJ/798/77,J/ApJ/798/77/table2,1243,recno Seq Gal RAJ2000 DEJ2000 V-I Vmag [Fe/H] e_[Fe/H] M31Cat,f31b51de02a8d8dafd6dfe0b65c30ac6c5cda9b3204730c2728bf43b1cc76371,vizier.cfa.harvard.edu
+J/AJ/131/332,J/AJ/131/332/table3,725,recno [GGR2006] RAJ2000 DEJ2000 Imag R-I HRV e_HRV S/N Mask,3b19c4a5f010290826507e1e04266ee461998d21a99e0983862f4a0853dd418a,vizier.cfa.harvard.edu
 J/ApJ/750/33,,0,,,vizier.cfa.harvard.edu
 J/ApJ/903/10,,0,,,vizier.cfa.harvard.edu
 J/A+A/689/A88,,0,,,vizier.cfa.harvard.edu

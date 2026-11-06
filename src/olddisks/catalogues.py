@@ -82,6 +82,28 @@ def walker2023(lvdb_names):
     return pd.concat(out)
 
 
+def ho2015():
+    """Ho+2015 CaT [Fe/H] (members) joined within 1 arcsec to Geha+2010 (NGC 147, 185) and Geha+2006 (NGC 205)
+    velocities; the nearest Ho star wins when two match one velocity star."""
+    h = table("J/ApJ/798/77/table2")
+    g10, g06 = table("J/ApJ/711/361/veloc"), table("J/AJ/131/332/table3")
+    out = []
+    for code, gal, v, vid in (("N147", "NGC 147", g10[g10.NGC == 147], "Name"),
+                              ("N185", "NGC 185", g10[g10.NGC == 185], "Name"),
+                              ("N205", "NGC 205", g06, "[GGR2006]")):
+        hh, v = h[h.Gal == code].reset_index(drop=True), v.reset_index(drop=True)
+        ch = SkyCoord(hh.RAJ2000.astype(str), hh.DEJ2000.astype(str), unit=(u.hourangle, u.deg))
+        cv = SkyCoord(v.RAJ2000.astype(str), v.DEJ2000.astype(str), unit=(u.hourangle, u.deg))
+        idx, sep, _ = ch.match_to_catalog_sky(cv)
+        m = pd.DataFrame(dict(i=np.arange(len(hh)), j=idx, sep=sep.arcsec))
+        m = m[m.sep < 1].sort_values("sep").drop_duplicates("j")
+        t = pd.concat([v.loc[m.j].reset_index(drop=True)[["RAJ2000", "DEJ2000", "HRV", "e_HRV", vid]],
+                       hh.loc[m.i].reset_index(drop=True)[["[Fe/H]", "e_[Fe/H]"]]], axis=1)
+        out.append(frame("Ho+2015", "J/ApJ/798/77 + J/ApJ/711/361, J/AJ/131/332", t, gal, "HRV", "e_HRV", "[Fe/H]",
+                         "e_[Fe/H]", np.ones(len(t), bool), vid, "DEIMOS"))
+    return pd.concat(out)
+
+
 def load():
     lvdb_names = set(pd.read_csv(LVDB).name)
     t = table
@@ -90,6 +112,7 @@ def load():
               "e_[Fe/H]", None, "Star", "FORS2"),
         kirby2014(),
         kirby2017(),
+        ho2015(),
         frame("Hermosa Munoz+2020", "J/A+A/634/A10", x := t("J/A+A/634/A10/tablea2"), "Aquarius", "HV", "e_HV",
               "[Fe/H]", "e_[Fe/H]", x.Memb == "Y", None, "FORS2"),
         frame("Taibi+2018", "J/A+A/618/A122", x := t("J/A+A/618/A122/table5"), "Cetus", "HV", "e_HV", "[Fe/H]",

@@ -54,3 +54,12 @@ def test_members_centred_on_assigned_galaxy(stars):
         if r > 2:
             bad.append((src, gal, round(float(r), 1)))
     assert bad == []
+
+
+@pytest.mark.parametrize("galaxy, n_ho2015", [("NGC 147", 230), ("NGC 185", 321), ("NGC 205", 224)])
+def test_ho2015_feh_joined_to_geha_velocities(stars, galaxy, n_ho2015):
+    """Ho+2015 Table 1 member counts; >= 96% must be matched (1") to a Geha velocity, each Geha star used once."""
+    s = stars[(stars.source == "Ho+2015") & (stars.galaxy == galaxy)]
+    assert len(s) >= 0.96 * n_ho2015 and len(s) <= n_ho2015
+    assert np.isfinite(s.v).all() and np.isfinite(s.feh).all() and s.member_paper.all()
+    assert not s.star_id.duplicated().any()
