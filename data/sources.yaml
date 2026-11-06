@@ -1,0 +1,20 @@
+# Single source of truth for external inputs. Large files live in ~/data/old_disks.
+lvdb:
+  what: Local Volume Database (Pace 2024), galaxy parameters (centre, R_half [arcmin], ellipticity, PA, distance [kpc], v_sys, sigma_v)
+  release: v1.1.2 (GitHub release 2026-11-04)
+  url: https://github.com/apace7/local_volume_database/releases/download/v1.1.2/comb_all.csv
+  path: ~/data/old_disks/lvdb/comb_all.csv
+  rows: 1733
+  sha256: 6a9e03ba53f08f1cf1c07ca21004286a71a7b8c4edcec108a11ec484d1141ffb
+  paper: Pace 2025, OJAp 8, 142, https://ui.adsabs.harvard.edu/abs/2025OJAp....8E.142P
+lvdb_pm:
+  url: https://github.com/apace7/local_volume_database/releases/download/v1.1.2/pm_overview.csv
+  path: ~/data/old_disks/lvdb/pm_overview.csv
+  rows: 791
+  sha256: e39ec1aa4243a9d6cd9e2f3f535a24c0867d926358d6857189f88138ac653dfd
+survey_members:
+  what: all stars within 3 R_half of 60 LG dwarfs in APOGEE DR17, SDSS-V DR20 BOSS (BOSSNet), DESI DR1 (RVS pipeline); flag `candidate`
+  origin: WSDB tables apogee_dr17.allstar, sdss5_dr20.astraallstarbossnet_boss, desi_dr1.stellar_rvs
+  fetch: scripts/build_survey_census.py
+  path: ~/data/old_disks/survey_members.parquet
+  sha256: 9cd043553de6a91ad397ee48edd59f2e2518002488bba4f56538a2e495be1d80
