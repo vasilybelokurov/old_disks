@@ -160,3 +160,10 @@ Mocks at real positions and errors, split at the median [Fe/H], 300 per scenario
 - NGC 6822 and IC 1613 samples sit inside ~1.1 R_half (90th percentile of r_ell), where solid-body rotation is small.
 Scaling 1/√N from NGC 6822 (σ_V/σ ≈ 0.17 at 190 per half), 80% power for Δ = 0.5 needs σ(Δ) ≈ 0.2, i.e. about 270 stars
 per half (≥ 550 members with [Fe/H]), and coverage to ≥ 2 R_half. Optimistic: perfect membership, homogeneous [Fe/H], known model form.
+
+### Re-reduction plan (`docs/plans/archival_rereduction.md`)
+Programme-level audit of ESO data (dp_tech, ins_mode, titles). This corrects the earlier census reading: NGC 6822 VIMOS 118 h is
+imaging (Gallart), 25 h is HII-region IFU; IC 1613 VIMOS and GIRAFFE spectra are massive stars; Sextans A UVES is supergiants
+or its GC. The old earlier recommendation to re-reduce these was wrong. The real red-giant CaT data are Cole 71.B-0516(B) FORS2 (IC 1613 17 h,
+NGC 6822 19 h, 8 GC calibrators; only AAS abstracts), Held 075.D-0838 FORS2 (NGC 6822 18 h; nothing in ADS) and Mayer
+072.B-0307 GIRAFFE (IC 1613 RGB 8.7 h; nothing in ADS). Validation set: Tolstoy 69.B-0305(B), the Swan+2016 masks.
