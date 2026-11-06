@@ -198,3 +198,40 @@ Next: fetch Ho+2015 Table 2 and Geha+2006 velocities.
     prior on it.
 - [Fe/H] errors (0.45–0.54 dex) are comparable to the [Fe/H] spread (0.6–0.76), confirming the dilution concern.
 - Next: model with a mixture, [Fe/H]-error deconvolution and the Ho selection (stars without [Fe/H]); mocks before any real fit.
+
+### Plan B for the dEs: model from the LMC kinfit, adversarial review, mocks, real fit (2026-11-06)
+- **LMC model studied** (`lmc-old-population/src/lmcold/kinfit.py`): disc-plane forward model, v0 tanh(R/R0), mixture with
+  broad outliers, populations per [Fe/H] bin, ML + NUTS, v0/σ_los per bin.
+- **Adapted** to line-of-sight-only data: V_p h(R) x/R, σ(R), mixture. Draft `docs/plans/de_model.md`.
+- **Review** (critic + proposer, Opus, 2 rounds; `docs/reviews/2026-11-06_de_model_debate.md`):
+  - NGC 205 dropped.
+  - Stars without [Fe/H] are not missing at random.
+  - R0 is unconstrained, so quote V/σ inside the data.
+  - The [Fe/H] error scale k is not identified (NGC 147 bright stars scatter most).
+  - Significance comes from within-R permutation statistics.
+  - Amplitude from mock-calibrated tercile contrasts.
+  - **Pre-registered** (commit 63fd27e, before the real tests): primary T_rot in NGC 185 at α = 0.01; others at 0.0025;
+    headline k = 1.
+- **Code:** `src/olddisks/defit.py`, `tests/test_defit.py` (19 tests pass).
+- **Mocks** (`scripts/de_mocks.py`, `results/de_mocks_summary.csv`, `figures/de_mocks.png`): 3200 mocks.
+  - False-positive rate within α; null p-values flat.
+  - Power at k = 1: NGC 185 0.07 / 0.21 / 0.72 at slopes 0.3 / 0.5 / 1.0 dex⁻¹; NGC 147 ≤ 0.07.
+  - Dilution C = 0.59 (NGC 185), 0.42 (NGC 147) at k = 1; ≈ 1.0–1.1 at k = 0.5.
+- **Real data** (`scripts/fit_de.py`, `results/de_fits.csv`, `figures/de_fit.png`):
+  - [Fe/H]-blind fits:
+    - NGC 185: V(2.5 R_half) = 8.0 km/s, σ = 23.3 km/s (Geha+2010: σ 24 ± 1).
+    - NGC 147: V(1.5 R_half) = 13.9 km/s, σ = 17.0 km/s (Geha: σ 16 ± 1).
+  - **NGC 185 (primary):**
+    - T_rot = 0.016, p = 0.78: no detection.
+    - V/σ by tercile 0.32 / 0.24 / 0.30.
+    - d(V/σ)/d[Fe/H] = −0.04 ± 0.30 dex⁻¹ (k = 1), i.e. 95 % range −0.62 to +0.55; −0.02 ± 0.15 at k = 0.5.
+    - Stable under the TRGB cut, PA ±10° and the R0 grid.
+    - T_σ: p = 0.93.
+  - **NGC 147:**
+    - T_rot = 0.081, p = 0.22: no detection.
+    - V/σ by tercile 0.59 / 0.84 / 1.00.
+    - Slope 0.98 ± 0.58 (k = 1) and 0.41 ± 0.24 (k = 0.5): 1.7σ, not significant. PA +10° gives p = 0.06.
+- **Caveats:**
+  - The TRGB cut assumes Geha I is dereddened (UNVERIFIED).
+  - sd taken from the null mocks.
+  - The LMC comparison (matched radius, projection) is not yet done; no claim made.

@@ -26,7 +26,8 @@ S_OUT = 100.0  # km/s, width of the contaminant component
 NBINS = 5
 
 
-def sample(galaxy):
+def sample(galaxy, dpa=0.0):
+    """dpa [deg]: offset added to the LVDB position angle (systematics test)."""
     import astropy.units as u
     from astropy.coordinates import SkyCoord
     g = pd.read_csv(LVDB).drop_duplicates("name").set_index("name").loc[galaxy]
@@ -36,7 +37,7 @@ def sample(galaxy):
     ho = ho[ho.galaxy == galaxy].set_index("star_id")
     c = SkyCoord(t.RAJ2000.astype(str), t.DEJ2000.astype(str), unit=(u.hourangle, u.deg))
     xi, eta = tangent_plane(c.ra.deg, c.dec.deg, g.ra, g.dec)
-    p = np.radians(g.position_angle)
+    p = np.radians(g.position_angle + dpa)
     xmaj = (xi * np.sin(p) + eta * np.cos(p)) * 60 / g.rhalf
     xmin = (xi * np.cos(p) - eta * np.sin(p)) * 60 / g.rhalf
     name = t.Name.astype(str)
