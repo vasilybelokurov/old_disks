@@ -18,3 +18,16 @@ survey_members:
   fetch: scripts/build_survey_census.py
   path: ~/data/old_disks/survey_members.parquet
   sha256: 9cd043553de6a91ad397ee48edd59f2e2518002488bba4f56538a2e495be1d80
+vizier:
+  what: 26 published per-star catalogues (list in scripts/fetch_vizier.py); per-table rows, columns and sha256 in data/vizier_manifest.csv
+  server: vizier.cfa.harvard.edu (CDS Strasbourg unreachable on 2026-11-06; re-verify checksums against CDS later)
+  fetch: scripts/fetch_vizier.py
+  path: ~/data/old_disks/vizier/
+  missing_on_mirror: J/ApJ/750/33 (Leaman+2012 WLM), J/ApJ/903/10 (Belland+2020 NGC 6822), J/A+A/689/A88 (Taibi+2024 IC 1613),
+    J/MNRAS/457/1299 (Kordopatis+2016 Carina), J/A+A/672/A131 (Alarcon Jara+2023 Leo I), J/ApJ/681/L13 (Battaglia+2008 Scl),
+    J/ApJ/839/20 (Caldwell+2017 Cra II), J/ApJ/758/124 (Ho+2012 And II)
+archives:
+  what: science frames, programmes and hours of ESO (raw + phase3) and Keck/DEIMOS spectroscopy within min(3 R_half, 2 deg)
+  services: https://archive.eso.org/tap_obs (dbo.raw, ivoa.ObsCore); https://koa.ipac.caltech.edu/TAP (koa_deimos)
+  fetch: scripts/build_archive_census.py
+  path: data/archive_census.csv
