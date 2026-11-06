@@ -145,3 +145,18 @@ Caveats seen in the figures:
 - Velocity zero-points between sources not yet compared.
 - No public per-star table yet for WLM (2 stars), Sextans A/B, NGC 3109, NGC 147/185 [Fe/H], or the IC 1613 MUSE sample.
   Missing on the mirror: Leaman+2012 (WLM), Belland+2020 (NGC 6822), Taibi+2024 (IC 1613).
+
+### Feasibility for dIrrs and M31 satellites (`scripts/feasibility_mocks.py`, `results/feasibility.csv`, `figures/feasibility.png`)
+Comparison: the LMC measurement (lmc-old-population `results/kin_support.csv`) uses APOGEE + BOSS giants (57,557 BOSS and
+5,796 APOGEE members) with v_los and spectroscopic [Fe/H], plus Gaia PMs of the same giants: 2,168–28,909 per [Fe/H] bin,
+v0/σ_los from 1.84 to 4.64 with ±0.03–0.05. (User correction: the LMC comparison is the APOGEE/BOSS giants, not the RR Lyrae.)
+Model: `olddisks.kinematics` (v_sys + V min(r,1) cos(φ−θ), Gaussian σ convolved with errors; recovery test passes at N = 4000).
+Mocks at real positions and errors, split at the median [Fe/H], 300 per scenario.
+- Power to detect ΔV/σ = 0.5 (0.5 → 1.0) at 95%: Sculptor 1.00 (reference), NGC 6822 0.65, Leo A 0.39, Phoenix 0.37,
+  Pegasus 0.35, And V 0.35, IC 1613 0.30, And VII 0.27, Aquarius 0.26, others 0.07–0.20.
+- Null floor (true V = 0) of recovered V/σ: 0.20 (NGC 6822) to 0.65 (Tucana); Sculptor 0.06. With 20–90 stars per half,
+  a non-rotating population looks like V/σ ≈ 0.3–0.6.
+- Per-half scatter of V/σ: Sculptor 0.04–0.05 (LMC-like precision); NGC 6822 0.17; the other dIrrs and M31 satellites 0.2–0.7.
+- NGC 6822 and IC 1613 samples sit inside ~1.1 R_half (90th percentile of r_ell), where solid-body rotation is small.
+Scaling 1/√N from NGC 6822 (σ_V/σ ≈ 0.17 at 190 per half), 80% power for Δ = 0.5 needs σ(Δ) ≈ 0.2, i.e. about 270 stars
+per half (≥ 550 members with [Fe/H]), and coverage to ≥ 2 R_half. Optimistic: perfect membership, homogeneous [Fe/H], known model form.
