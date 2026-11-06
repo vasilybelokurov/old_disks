@@ -31,3 +31,7 @@ archives:
   services: https://archive.eso.org/tap_obs (dbo.raw, ivoa.ObsCore); https://koa.ipac.caltech.edu/TAP (koa_deimos)
   fetch: scripts/build_archive_census.py
   path: data/archive_census.csv
+inventory:
+  what: per-galaxy counts of members with v and [Fe/H] (published catalogues harmonised by src/olddisks/catalogues.py + WSDB surveys)
+  build: scripts/build_inventory.py
+  path: data/inventory.csv; per-star ~/data/old_disks/inventory_stars.parquet
