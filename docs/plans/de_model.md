@@ -141,3 +141,21 @@ Review record: `docs/reviews/2026-11-06_de_model_debate.md`.
 - **Primary p < 0.01 and stable under the TRGB cut:** a detection, with s given as a range over k.
 - **Otherwise:** a 95 % upper limit on |s| at k = 1.
 - No number is quoted before `figures/de_mocks.png` and `figures/de_fit.png` exist.
+
+---
+# Extension to 11 MW dSphs (user request, 2026-11-06): pre-registered before the fit
+
+- **Galaxies:** Sculptor, Draco, Ursa Minor, Carina, Sextans, Fornax, Antlia II, Crater II, Leo II, Bootes I, Tucana II.
+- **Baseline data:** Walker+2023 (one pipeline, one [Fe/H] scale).
+  - Stars observed with several instruments are deduplicated at 1", keeping the smaller e_v.
+  - Members: |v − v_sys| < 3 √(σ² + e_v²), Gaia PM χ² < 9 about the LVDB systemic PM (error floor 0.05 mas/yr;
+    stars without a PM kept), and R_ell < 6 R_half.
+- **Velocities corrected for perspective:** subtract (V_3D · n_i − v_sys), with V_3D from the LVDB v_sys, PM and distance.
+- **Model:** the [Fe/H]-blind model of defit with the kinematic axis free (offset dθ from the photometric PA); R0 chosen
+  from {0.5, 1, 2, 4} R_half by the blind likelihood; R* = median R_ell of the stars with [Fe/H].
+- **Tests:** T_rot per galaxy, Bonferroni α = 0.05/11 = 0.0045; T_σ secondary at the same α.
+- **Amplitude:** tercile contrast / C, with C and the sd from 100 mocks per slope (0, 1) per galaxy at k = 1.
+- **Robustness:** the flagged-membership catalogue of each galaxy (Tolstoy+2023, Pace+2020, Pace+2021, Ji+2021,
+  Spencer+2017, Tolstoy+2025).
+- **Caveat stated in advance:** line-of-sight gradients in MW dSphs may be tidal (Martínez-García+2023), so a velocity
+  gradient is reported as such, not as rotation.
