@@ -235,3 +235,36 @@ Next: fetch Ho+2015 Table 2 and Geha+2006 velocities.
   - The TRGB cut assumes Geha I is dereddened (UNVERIFIED).
   - sd taken from the null mocks.
   - The LMC comparison (matched radius, projection) is not yet done; no claim made.
+
+### 11 MW dSphs (pre-registered extension), and fixes (2026-11-06)
+**Bugs found and fixed (tests first):**
+1. The inventory union did not deduplicate within a source. Walker+2023 rows for the same star from several instruments
+   were counted 2–3×, so the earlier dSph counts were inflated.
+2. The mock injected the slope with the wrong sign for V < 0.
+3. Mock support could go negative (counter-rotation) for non-rotators, and the calibration then averaged to zero. Now
+   V/σ(z) = max(0, |V|/σ + slope (z − z̄)).
+4. Ji+2021 uses e_[Fe/H] = 99 placeholders; set to NaN.
+5. pandas index misalignment of slope_sd.
+
+The NGC 185/147 p-values are unchanged after the fixes. The amplitude calibration changed: NGC 185 −0.06 ± 0.45 and
+NGC 147 1.01 ± 0.59 per dex (k = 1).
+
+**Walker+2023 [Fe/H] errors validated on overlaps** (implied k = 0.88–1.02 against Tolstoy+2023, Pace+2020, Tolstoy+2025,
+Spencer+2017). Typical members have e = 0.45–0.65 dex, so the [Fe/H] information fraction λ ≈ 0 for most Walker samples:
+there is no [Fe/H] leverage. Catalogue offsets reach 0.26 dex (UMi), which justifies using a single source per galaxy.
+
+**Results** (`scripts/fit_dsph.py`, `results/dsph_fits.csv`, `figures/dsph_fit.png`; α = 0.0045):
+- **T_rot (velocity gradient versus [Fe/H]): no detection in any galaxy or catalogue.** Smallest p: Fornax (Walker) 0.041,
+  Sculptor (Tolstoy) 0.088.
+- **T_σ (normalised |residual| versus [Fe/H]): detected, metal-rich colder.**
+  - Sculptor: p = 1e−4 in both Walker and Tolstoy; t = −0.17 and −0.19.
+  - Fornax: p = 7e−4 (Walker) and 3e−3 (Pace).
+  - Marginal: Sextans (Tolstoy) 0.006, Draco 0.037.
+  - This reproduces the known chemo-dynamical populations (e.g. Battaglia+2008 Sculptor, 2008ApJ...681L..13B). It is
+    a validation of the method, not new.
+- **Calibrated slopes** where there is leverage:
+  - Sculptor (Tolstoy) +0.82 ± 0.29 dex⁻¹ (2.8σ, tercile V/σ 0.02 → 0.30). The pre-registered T_rot gives p = 0.088, and
+    17 runs were made, so this is a hint, not a detection.
+  - Others are consistent with zero: UMi (Pace) −1.0 ± 0.7, Sextans (Tolstoy) 0.3 ± 0.36, Antlia II (Ji) 0.06 ± 0.23,
+    Leo II (Spencer) −0.3 ± 0.4.
+- **Gradients are small** (V/σ ≲ 0.3), except Antlia II (≈0.9, its known tidal gradient, Ji+2021) and UMi.
