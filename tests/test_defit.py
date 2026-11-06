@@ -85,3 +85,27 @@ def test_dsph_sample(galaxy):
     import astropy.units as u
     c = SkyCoord(s.ra.to_numpy() * u.deg, s.dec.to_numpy() * u.deg)
     assert (c.match_to_catalog_sky(c, nthneighbor=2)[1].arcsec > 1).all()
+
+
+def test_mock_slope_sign_independent_of_rotation_sense():
+    """A positive slope means more rotational support for metal-rich stars whatever the sense of rotation (sign of V)."""
+    rng = np.random.default_rng(8)
+    s = _truth_sample(rng, 6000)
+    s["efeh"] = 1e-6
+    for V in (15.0, -15.0):
+        truth = dict(vsys=-200.0, V=V, sigma0=20.0, beta=0.0, f=0.0, R0=1.0, Rstar=2.5)
+        m = make_mock(s, truth, slope=0.5, k=1.0, rng=rng)
+        t = tercile_fit(m, blind_fit(m, R0=1.0, Rstar=2.5))
+        assert abs(t["delta"] - 0.5 * (t["zmean"][2] - t["zmean"][0])) < 0.12
+
+
+def test_mock_support_never_counter_rotates():
+    """For a non-rotator (V = 0) a positive slope gives rotating metal-rich and non-rotating (not counter-rotating)
+    metal-poor stars, and the tercile contrast sees it."""
+    rng = np.random.default_rng(9)
+    s = _truth_sample(rng, 6000)
+    s["efeh"] = 1e-6
+    truth = dict(vsys=0.0, V=0.0, sigma0=10.0, beta=0.0, f=0.0, R0=1.0, Rstar=2.5)
+    m = make_mock(s, truth, slope=1.0, k=1.0, rng=rng)
+    t = tercile_fit(m, blind_fit(m, R0=1.0, Rstar=2.5, fit_theta=True))
+    assert abs(t["ratio"][0]) < 0.1 and t["delta"] > 0.4

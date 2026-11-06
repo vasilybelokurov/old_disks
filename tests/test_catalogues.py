@@ -63,3 +63,8 @@ def test_ho2015_feh_joined_to_geha_velocities(stars, galaxy, n_ho2015):
     assert len(s) >= 0.96 * n_ho2015 and len(s) <= n_ho2015
     assert np.isfinite(s.v).all() and np.isfinite(s.feh).all() and s.member_paper.all()
     assert not s.star_id.duplicated().any()
+
+
+def test_no_placeholder_errors(stars):
+    """Placeholder values (e.g. 99 in Ji+2021 e_[Fe/H]) must become NaN."""
+    assert not (stars.efeh > 5).any() and not (stars.ev > 100).any()

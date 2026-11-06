@@ -48,7 +48,11 @@ def real(args):
     s, b = setup(gal, src)
     st = statistics(s, b["R0"], b["Rstar"], nperm=10000, rng=np.random.default_rng(7), fit_theta=True)
     bb = st.pop("blind")
-    return dict(galaxy=gal, source=src, n=len(s), n_feh=int(np.isfinite(s.feh).sum()), feh_med=float(np.nanmedian(s.feh)),
+    t = s[np.isfinite(s.feh)]
+    res = t.feh - np.polyval(np.polyfit(t.R, t.feh, 1), t.R)
+    lam = (np.var(res) - np.mean(t.efeh**2)) / np.var(res)  # fraction of the [Fe/H] variance (about the radial trend) not error
+    return dict(galaxy=gal, source=src, n=len(s), n_feh=len(t), feh_med=float(t.feh.median()), efeh_med=float(t.efeh.median()),
+                lam=lam,
                 Rstar=bb["Rstar"], R0=bb["R0"], dtheta_deg=np.degrees(bb["dtheta"]), V=bb["V"], sigma0=bb["sigma0"],
                 t_rot=st["t_rot"], p_rot=st["p_rot"], t_sig=st["t_sig"], p_sig=st["p_sig"], delta=st["delta"],
                 ratio_mp=st["ratio"][0], ratio_mid=st["ratio"][1], ratio_mr=st["ratio"][2],
@@ -66,14 +70,17 @@ def main():
                                                             rate=("p_rot", lambda p: (p < ALPHA).mean())).unstack("slope")
     r = r.set_index(["galaxy", "source"])
     r["C"] = cal["d"][1.0] - cal["d"][0.0]
-    r["slope"] = r.delta / r.C
-    r["slope_sd"] = cal["sd"][0.0] / r.C
+    r["C_err"] = np.sqrt(cal["sd"][0.0] ** 2 + cal["sd"][1.0] ** 2) / np.sqrt(NMOCK)
+    r["sd0"] = cal["sd"][0.0]
+    ok = r.C > 3 * r.C_err  # the tercile contrast responds to a slope: amplitude calibratable
+    r["slope"] = (r.delta / r.C).where(ok)
+    r["slope_sd"] = (r.sd0 / r.C).where(ok)
     r["fpr_mock"], r["power_1dex"] = cal["rate"][0.0], cal["rate"][1.0]
     r["detected_rot"] = r.p_rot < ALPHA
     r = r.reset_index()
     r.round(4).to_csv("results/dsph_fits.csv", index=False)
     pd.set_option("display.width", 250)
-    print(r[["galaxy", "source", "n_feh", "feh_med", "Rstar", "dtheta_deg", "V", "sigma0", "p_rot", "p_sig", "ratio_mp", "ratio_mr",
+    print(r[["galaxy", "source", "n_feh", "feh_med", "efeh_med", "lam", "C", "C_err", "Rstar", "dtheta_deg", "V", "sigma0", "p_rot", "p_sig", "ratio_mp", "ratio_mr",
              "slope", "slope_sd", "fpr_mock", "power_1dex", "detected_rot"]].round(3).to_string(index=False))
     figure(r)
 
@@ -86,7 +93,9 @@ def figure(r):
         ax[0].errorbar(r.slope[sel], y[sel], xerr=1.96 * r.slope_sd[sel], fmt=mk, color="k", mfc="k" if mk == "o" else "white",
                        label=lab)
     for yi, (_, row) in zip(y, r.iterrows()):
-        ax[0].text(3.05, yi, f"p={row.p_rot:.3f}  N={row.n_feh}", va="center", fontsize=7)
+        ax[0].text(3.05, yi, f"p={row.p_rot:.3f} N={row.n_feh} λ={row.lam:.2f}", va="center", fontsize=7)
+        if not np.isfinite(row.slope):
+            ax[0].text(0, yi, "no [Fe/H] leverage (C ≈ 0)", va="center", ha="center", fontsize=7, color="C3")
     ax[0].axvline(0, color="k", lw=0.5)
     ax[0].set_yticks(y, [f"{g} ({s.split('+')[0]})" for g, s in zip(r.galaxy, r.source)], fontsize=8)
     ax[0].set_xlim(-3, 4.2)

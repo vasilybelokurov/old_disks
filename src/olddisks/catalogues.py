@@ -162,4 +162,6 @@ def load():
               "e_[Fe/H]", x.Mm == "Y", "Name", "DEIMOS"),
     ]
     out = pd.concat(parts, ignore_index=True)
+    out.loc[out.efeh > 5, ["feh", "efeh"]] = np.nan  # placeholders (99 in Ji+2021)
+    out.loc[out.ev > 100, ["v", "ev"]] = np.nan
     return out[out.galaxy.isin(lvdb_names)].reset_index(drop=True)

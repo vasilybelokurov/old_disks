@@ -153,7 +153,7 @@ def statistics(s, R0, Rstar, nperm=10000, rng=None, fit_theta=False):
 
 def make_mock(s, truth, slope, k, rng):
     """Mock of sample s: true [Fe/H] z drawn given the observed one (Gaussian shrinkage about the radial trend, with errors
-    k e_z); V(z) = V + slope sigma0 (z - mean z), sigma independent of z; a fraction f of contaminants N(vsys, S_OUT);
+    k e_z); V(z)/sigma0 = max(0, |V|/sigma0 + slope (z - mean z)) in the sense of V, sigma independent of z; a fraction f of contaminants N(vsys, S_OUT);
     returned with mock velocities and mock observed [Fe/H] (NaN kept where the real star has none)."""
     s = s.copy()
     tag = np.isfinite(s.feh).to_numpy()
@@ -164,7 +164,8 @@ def make_mock(s, truth, slope, k, rng):
     z = m + rng.normal(0, np.sqrt(tau2), len(s))
     lam = tau2 / (tau2 + e[tag] ** 2)
     z[tag] = m[tag] + lam * (feh[tag] - m[tag]) + rng.normal(0, np.sqrt(lam) * e[tag])
-    V = truth["V"] + slope * truth["sigma0"] * (z - z[tag].mean())
+    sense = 1.0 if truth["V"] >= 0 else -1.0  # support V/sigma grows with z and never goes below zero (no counter-rotation)
+    V = sense * truth["sigma0"] * np.maximum(0.0, abs(truth["V"]) / truth["sigma0"] + slope * (z - z[tag].mean()))
     mean = truth["vsys"] + V * h(R, truth["R0"], truth["Rstar"]) * xkin(s, truth.get("dtheta", 0.0)) / R
     sig = truth["sigma0"] * np.exp(truth["beta"] * (R - truth["Rstar"]))
     v = mean + rng.normal(0, np.sqrt(sig**2 + s.ev.to_numpy() ** 2))
