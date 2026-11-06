@@ -21,6 +21,10 @@ Related projects (same author, same methods; read them before writing new code):
 
 ## Part 1: spectroscopic inventory
 
+**The core of the project is finding external datasets** (user, 2026-11-06): published per-star catalogues (VizieR,
+journal tables, author pages) and archival spectra (ESO, KOA, MAST, NOIRLab, SDSS/DESI, AAT). WSDB surveys are a minor
+supplement.
+
 Deliverable: `data/inventory.csv`, one row per (galaxy, dataset), plus `data/inventory.md` describing every column.
 
 Minimum columns:
@@ -77,6 +81,6 @@ state it explicitly or restrict the claim to metallicity.
   without being asked, during long work as well as at the end.
 - Figures: `figures/*.png`, made by `scripts/fig_*.py`.
 - Python from the project `.venv` (set xattr `com.dropbox.ignored` on it); tests with `pytest`.
-- Commit after each tested step.
+- Commit and push to GitHub (public repo vasilybelokurov/old_disks) after each tested step, without asking (user, 2026-11-06).
 - Second opinions from Codex (ask-codex skill); save reviews in `docs/reviews/`.
 - Citations: real, checked, with ADS/arXiv/DOI URLs; otherwise label UNVERIFIED.
