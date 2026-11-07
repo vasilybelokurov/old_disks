@@ -286,3 +286,11 @@ there is no [Fe/H] leverage. Catalogue offsets reach 0.26 dex (UMi), which justi
   - SDSS-V DR20 BOSS giants: 12,687 with BOSSNet [Fe/H]; 601 below −1.5, 1238 below −1.2.
   - APOGEE DR17: 2369 with [Fe/H]; 103 below −1.5.
   - The same data and method as the LMC study.
+- **M33 check:**
+  - TREX (Keck/DEIMOS): about 4500 disc-star velocities (Quirk+2022, 2022AJ....163..166Q). Kinematics by broad age bin are
+    published (MS/He-burning about 80 Myr, AGB about 1 Gyr, RGB about 4 Gyr): σ ≈ 16 km/s, no strong trend with age.
+    Also Gilbert+2022 (2022ApJ...924..116G, halo) and Cullinane+2023 (2023ApJ...958..157C).
+  - No per-star [Fe/H] found in ADS. Tables not on the VizieR mirror.
+  - KOA: TREX programmes (Guhathakurta) about 80 h of DEIMOS, 2014–2024, public; plus Lazzarini 2022–23 (14 h) and
+    Smecker-Hane 2003 (11 h).
+  - DESI DR1: 497 stars at M33 velocities within 1° (median Teff 5630 K, S/N 13; 132 cool giants).
