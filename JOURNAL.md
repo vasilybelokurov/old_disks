@@ -268,3 +268,21 @@ there is no [Fe/H] leverage. Catalogue offsets reach 0.26 dex (UMi), which justi
   - Others are consistent with zero: UMi (Pace) −1.0 ± 0.7, Sextans (Tolstoy) 0.3 ± 0.36, Antlia II (Ji) 0.06 ± 0.23,
     Leo II (Spencer) −0.3 ± 0.4.
 - **Gradients are small** (V/σ ≲ 0.3), except Antlia II (≈0.9, its known tidal gradient, Ji+2021) and UMi.
+
+## 2026-11-07: search for a better sample (IFU)
+- **ESO MUSE cube census** of LVDB galaxies within 5 Mpc (`data/muse_cubes_census.csv`): NGC 300 83 h, Tucana 30 h, IC 1613 19 h,
+  Sextans A 17 h, Leo P 12 h, Sag DIG 11 h, Fornax 10 h, WLM 5.5 h. Old red giants are resolvable only within about 1 Mpc.
+- **Resolved-star IFU** (agent, `data/ifu_resolved_census.csv`): no published programme reaches ≥ 500 stars with [Fe/H] ≲ 0.2 dex in a
+  dIrr.
+  - IC 1613 (Taibi+2024): 275 stars with [Fe/H]; the analysis is already done; the table is not public.
+  - Tucana 30 h: no refereed paper, so excluded.
+  - M54 / Sgr nucleus: 6600 stars, public (J/ApJ/939/118), rotation per population already published (Kacharov+2022).
+- **Integrated-light IFU** (agent, `data/ifu_integrated_census.csv`):
+  - Age-split kinematics (young versus old) work (Shetty+2020, Rosado-Belza+2020).
+  - A metal-poor versus metal-rich split among old stars has not been demonstrated; mock tests show biases (Wang+2024).
+  - Dwarf σ lies below the MUSE resolution.
+  - Gap: V/σ by age or [M/H] in dEs or low-mass discs is unpublished (candidates: Virgo dEs from Bidaran+2020, Fornax3D).
+- **SMC check (WSDB, 4° radius, v 90–220 km/s, raw, no cleaning):**
+  - SDSS-V DR20 BOSS giants: 12,687 with BOSSNet [Fe/H]; 601 below −1.5, 1238 below −1.2.
+  - APOGEE DR17: 2369 with [Fe/H]; 103 below −1.5.
+  - The same data and method as the LMC study.
