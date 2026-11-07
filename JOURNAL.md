@@ -294,3 +294,16 @@ there is no [Fe/H] leverage. Catalogue offsets reach 0.26 dex (UMi), which justi
   - KOA: TREX programmes (Guhathakurta) about 80 h of DEIMOS, 2014–2024, public; plus Lazzarini 2022–23 (14 h) and
     Smecker-Hane 2003 (11 h).
   - DESI DR1: 497 stars at M33 velocities within 1° (median Teff 5630 K, S/N 13; 132 cool giants).
+- **JWST within 4 Mpc** (companion project `../jwst_star_download`: archive-wide public JWST stellar-spectroscopy inventory,
+  `~/data/jwst/stellar_spectroscopy/programme_inventory.csv`, 1424 programmes; spectral downloads disabled by its policy):
+  - **Resolved-star NIRSpec MSA programmes:**
+    - 3788 (Weisz): "Alpha elements ... isolated dwarf galaxies"; IC 1613, Tucana, Leo A; G140H; public since 2024-02-15;
+      572 records.
+    - 2301 (Mackereth): M31 giants; G140M + G235M; public since 2023-03.
+    - 2609 (Nidever): M31 disc alpha bimodality; G140H; public since 2023-01.
+    - 4735 (Sandford): M31 inner disc; public since 2026-07.
+  - No refereed paper using these spectra was found in ADS (searches by galaxy, instrument and PI names). They are
+    therefore excluded under the published-only rule unless the user relaxes it. Star counts are not yet known.
+  - No JWST spectroscopy of M33. Other JWST spectroscopy within 4 Mpc is gas/IFU (NGC 253, M82, M83, Cen A, Leo P,
+    Sextans A dust), not stellar kinematics.
+  - Programme 3788 is not in the companion's STELLAR_SURVEYS list (`jwst_star_download/spectroscopy_build.py`).
