@@ -307,3 +307,14 @@ there is no [Fe/H] leverage. Catalogue offsets reach 0.26 dex (UMi), which justi
   - No JWST spectroscopy of M33. Other JWST spectroscopy within 4 Mpc is gas/IFU (NGC 253, M82, M83, Cen A, Leo P,
     Sextans A dust), not stellar kinematics.
   - Programme 3788 is not in the companion's STELLAR_SURVEYS list (`jwst_star_download/spectroscopy_build.py`).
+- The archive-wide MAST sweep for JWST spectroscopy near LVDB galaxies within 4 Mpc (`data/jwst_spectra_census.csv`) did not
+  finish before the session closed. Rerun it if needed: the query is in the session log; the completeness check is optional,
+  because the companion inventory already covers JWST stellar spectroscopy programmes.
+
+## Open decisions for the user (2026-11-07)
+1. **SMC** (12,687 BOSS + 2,369 APOGEE giants with [Fe/H]): here, or in the LMC repository?
+2. **JWST programme 3788** (Weisz; IC 1613, Tucana, Leo A; NIRSpec G140H, public, no refereed paper found): relax the
+   published-only rule, or contact the team?
+3. **M33 (TREX):** fetch the journal machine-readable tables first; CaT [Fe/H] would need a KOA re-reduction pilot.
+4. **The integrated-light test on M54** (degrade resolved data, recover V/σ by [Fe/H]) if the IFU route is pursued.
+5. **The LMC comparison** projected to the line of sight at a matched radius (not yet done).
